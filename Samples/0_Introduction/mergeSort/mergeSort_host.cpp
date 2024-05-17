@@ -54,6 +54,8 @@ static uint getSampleCount(uint dividend) {
                                            : (dividend / SAMPLE_STRIDE);
 }
 
+// see
+// https://gist.github.com/qqwqqw689/88bb8dc964ba923de3cddb1e50fb7256
 static uint nextPowerOfTwo(uint x) {
   --x;
   x |= x >> 1;
@@ -105,6 +107,9 @@ static uint binarySearchExclusive(uint val, uint *data, uint L, uint sortDir) {
 ////////////////////////////////////////////////////////////////////////////////
 // Merge step 1: find sample ranks in each segment
 ////////////////////////////////////////////////////////////////////////////////
+
+// N -  The total number of elements in the array being sorted.
+// sortDir - A flag indicating the sorting direction.
 static void generateSampleRanks(uint *ranksA, uint *ranksB, uint *srcKey,
                                 uint stride, uint N, uint sortDir) {
   uint lastSegmentElements = N % (2 * stride);
