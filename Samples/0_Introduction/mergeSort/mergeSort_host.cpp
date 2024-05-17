@@ -131,6 +131,8 @@ static void generateSampleRanks(uint *ranksA, uint *ranksB, uint *srcKey,
     // SHARED_SIZE_LIMIT - 1024
     // stride is 1*SHARED_SIZE_LIMIT, 2*SHARED_SIZE_LIMIT, 4*SHARED_SIZE_LIMIT, 8* ......
     const uint segmentBase = (pos - i) * (2 * SAMPLE_STRIDE);
+    // segmentBase points to the start of the pair of segments that
+    // contain the current sample position.
 
     const uint lenA = stride;
     const uint lenB = umin(stride, N - segmentBase - stride);
