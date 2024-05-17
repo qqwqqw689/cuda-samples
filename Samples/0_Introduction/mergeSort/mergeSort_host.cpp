@@ -108,7 +108,11 @@ static uint binarySearchExclusive(uint val, uint *data, uint L, uint sortDir) {
 // Merge step 1: find sample ranks in each segment
 ////////////////////////////////////////////////////////////////////////////////
 
-// N -  The total number of elements in the array being sorted.
+// ranksA - An array to store the ranks of samples in the first part of each segment.
+// ranksB - An array to store the ranks of samples in the second part of each segment.
+// srcKey - The array of keys (values) to be sorted.
+// stride - The size of each segment being processed.
+// N - The total number of elements in the array being sorted.
 // sortDir - A flag indicating the sorting direction.
 static void generateSampleRanks(uint *ranksA, uint *ranksB, uint *srcKey,
                                 uint stride, uint N, uint sortDir) {
@@ -120,12 +124,20 @@ static void generateSampleRanks(uint *ranksA, uint *ranksB, uint *srcKey,
 
   for (uint pos = 0; pos < sampleCount; pos++) {
     const uint i = pos & ((stride / SAMPLE_STRIDE) - 1);
+    // This line calculates the offset i within a segment.
+    // The length of a segemnt is 2*stride, and 2*stride / 2*SAMPLE_STRIDE == 
+    // stride / SAMPLE_STRIDE
+    // SAMPLE_STRIDE - 128
+    // SHARED_SIZE_LIMIT - 1024
+    // stride is 1*SHARED_SIZE_LIMIT, 2*SHARED_SIZE_LIMIT, 4*SHARED_SIZE_LIMIT, 8* ......
     const uint segmentBase = (pos - i) * (2 * SAMPLE_STRIDE);
 
     const uint lenA = stride;
     const uint lenB = umin(stride, N - segmentBase - stride);
+    // lenA and lenB define the lengths of the two halves of the segment.
     const uint nA = stride / SAMPLE_STRIDE;
     const uint nB = getSampleCount(lenB);
+    // nA and nB determine the number of samples in each half.
 
     if (i < nA) {
       ranksA[(segmentBase + 0) / SAMPLE_STRIDE + i] = i * SAMPLE_STRIDE;
