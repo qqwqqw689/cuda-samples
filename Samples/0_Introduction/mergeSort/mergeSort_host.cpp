@@ -85,6 +85,13 @@ static uint binarySearchInclusive(uint val, uint *data, uint L, uint sortDir) {
   return pos;
 }
 
+// find the position in an array where a given value val should
+// be inserted to maintain the order, excluding elements equal to val
+
+// val: The value to be inserted.
+// data: The array in which the position is to be found.
+// L: The length of the array.
+// sortDir: The sorting direction (1 for ascending, 0 for descending).
 static uint binarySearchExclusive(uint val, uint *data, uint L, uint sortDir) {
   if (L == 0) {
     return 0;
@@ -141,7 +148,7 @@ static void generateSampleRanks(uint *ranksA, uint *ranksB, uint *srcKey,
     const uint nB = getSampleCount(lenB);
     // nA and nB determine the number of samples in each half.
 
-    if (i < nA) {
+    if (i < nA) { //  the index i is within the range of the first half segment
       ranksA[(segmentBase + 0) / SAMPLE_STRIDE + i] = i * SAMPLE_STRIDE;
       ranksB[(segmentBase + 0) / SAMPLE_STRIDE + i] =
           binarySearchExclusive(srcKey[segmentBase + i * SAMPLE_STRIDE],
@@ -267,6 +274,12 @@ static void mergeElementaryIntervals(uint *dstKey, uint *dstVal, uint *srcKey,
 ////////////////////////////////////////////////////////////////////////////////
 // Retarded bubble sort
 ////////////////////////////////////////////////////////////////////////////////
+
+// key: Pointer to the array of keys to be sorted.
+// val: Pointer to the array of values associated with the keys.
+// N: The number of elements in the key and val arrays.
+// sortDir: The direction of sorting. 
+// non-zero - ascending.
 static void bubbleSort(uint *key, uint *val, uint N, uint sortDir) {
   if (N <= 1) {
     return;
