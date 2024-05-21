@@ -34,6 +34,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Helper functions
 ////////////////////////////////////////////////////////////////////////////////
+
+// data: Pointer to an array of unsigned integers.
+// N: The number of elements in the array.
 static void checkOrder(uint *data, uint N, uint sortDir) {
   if (N <= 1) {
     return;
@@ -66,6 +69,11 @@ static uint nextPowerOfTwo(uint x) {
   return ++x;
 }
 
+
+// val: The value to be inserted.
+// data: The array in which the position is to be found. 
+// L: The length of the array data.
+// sortDir: The sorting direction (1 for ascending, 0 for descending).
 static uint binarySearchInclusive(uint val, uint *data, uint L, uint sortDir) {
   if (L == 0) {
     return 0;
@@ -211,6 +219,8 @@ static void mergeRanksAndIndices(uint *limits, uint *ranks, uint stride,
 ////////////////////////////////////////////////////////////////////////////////
 // Merge step 3: merge elementary intervals (each interval is <= SAMPLE_STRIDE)
 ////////////////////////////////////////////////////////////////////////////////
+
+// This merge function merges two sorted arrays (srcAKey and srcBKey) into a single sorted array (dstKey)
 static void merge(uint *dstKey, uint *dstVal, uint *srcAKey, uint *srcAVal,
                   uint *srcBKey, uint *srcBVal, uint lenA, uint lenB,
                   uint sortDir) {
@@ -310,6 +320,15 @@ static void bubbleSort(uint *key, uint *val, uint N, uint sortDir) {
 ////////////////////////////////////////////////////////////////////////////////
 // Interface function
 ////////////////////////////////////////////////////////////////////////////////
+
+// dstKey: Pointer to the destination array where the sorted keys will be stored.
+// dstVal: Pointer to the destination array where the associated values will be stored after sorting.
+// bufKey: Pointer to a temporary buffer array used during sorting for keys.
+// bufVal: Pointer to a temporary buffer array used during sorting for values.
+// srcKey: Pointer to the source array containing the keys to be sorted.
+// srcVal: Pointer to the source array containing the associated values to be sorted along with the keys.
+// N: The number of elements in the source array srcKey and srcVal.
+// sortDir: The sorting direction (1 for ascending, 0 for descending).
 extern "C" void mergeSortHost(uint *dstKey, uint *dstVal, uint *bufKey,
                               uint *bufVal, uint *srcKey, uint *srcVal, uint N,
                               uint sortDir) {
