@@ -93,6 +93,8 @@
 #endif
 
 // CUDA Utility Helper Functions
+
+// Return : the index of the first non-delimiter character. 
 inline int stringRemoveDelimiter(char delimiter, const char *string) {
   int string_start = 0;
 
@@ -123,6 +125,10 @@ inline int getFileExtension(char *filename, char **extension) {
 
   return string_length;
 }
+
+// argc : argument count
+// argv : Each element of this array is a pointer to a null-terminated string.
+// string_ref : the reference string that the function is searching for within the command-line arguments. 
 
 inline bool checkCmdLineFlag(const int argc, const char **argv,
                              const char *string_ref) {
@@ -208,6 +214,10 @@ inline int getCmdLineArgumentInt(const int argc, const char **argv,
     return 0;
   }
 }
+
+// argc : argument count
+// argv : Each element of this array is a pointer to a null-terminated string.
+// string_ref : the reference string that the function is searching for within the command-line arguments. 
 
 inline float getCmdLineArgumentFloat(const int argc, const char **argv,
                                      const char *string_ref) {
