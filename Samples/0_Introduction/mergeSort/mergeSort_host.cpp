@@ -227,6 +227,8 @@ static void merge(uint *dstKey, uint *dstVal, uint *srcAKey, uint *srcAVal,
   checkOrder(srcAKey, lenA, sortDir);
   checkOrder(srcBKey, lenB, sortDir);
 
+  // If there are same key values in srcAKey and srcBKey,
+  // make the value in srcAKey before srcBKey.
   for (uint i = 0; i < lenA; i++) {
     uint dstPos = binarySearchExclusive(srcAKey[i], srcBKey, lenB, sortDir) + i;
     assert(dstPos < lenA + lenB);
