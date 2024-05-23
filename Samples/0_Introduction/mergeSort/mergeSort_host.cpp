@@ -176,6 +176,8 @@ static void generateSampleRanks(uint *ranksA, uint *ranksB, uint *srcKey,
 ////////////////////////////////////////////////////////////////////////////////
 // Merge step 2: merge ranks and indices to derive elementary intervals
 ////////////////////////////////////////////////////////////////////////////////
+
+// This function just like merge() below.But it treat elements of length SAMPLE_STRIDE.
 static void mergeRanksAndIndices(uint *limits, uint *ranks, uint stride,
                                  uint N) {
   uint lastSegmentElements = N % (2 * stride);
